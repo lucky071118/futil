@@ -20,7 +20,7 @@ Example:
 futil linecount -f /path/to/file`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		filePath, err := cmd.Flags().GetString("filePath")
+		filePath, err := cmd.Flags().GetString("file")
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -39,8 +39,8 @@ futil linecount -f /path/to/file`,
 func init() {
 	rootCmd.AddCommand(linecountCmd)
 
-	linecountCmd.Flags().StringP("filePath", "f", "", "File path(required)")
-	linecountCmd.MarkFlagRequired("filePath")
+	linecountCmd.Flags().StringP("file", "f", "", "File path(required)")
+	linecountCmd.MarkFlagRequired("file")
 }
 
 func CountLine(filePath string) (int, error) {
