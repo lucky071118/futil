@@ -1,7 +1,10 @@
+/*
+Copyright © 2024 NAME HERE yuchitan@kkcompany.com
+*/
 package main
 
-import "fmt"
+import "github.com/lucky071118/futil/cmd"
 
 func main() {
-	fmt.Println("Hello, World!")
+	cmd.Execute()
 }
