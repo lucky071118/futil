@@ -4,7 +4,9 @@ Copyright © 2024 NAME HERE yuchitan@kkcompany.com
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -24,7 +26,13 @@ futil linecount -f /path/to/file`,
 			return
 		}
 
-		fmt.Println("linecount called for " + filePath)
+		count, err := CountLine(filePath)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		fmt.Println(count)
 	},
 }
 
@@ -33,4 +41,23 @@ func init() {
 
 	linecountCmd.Flags().StringP("filePath", "f", "", "File path(required)")
 	linecountCmd.MarkFlagRequired("filePath")
+}
+
+func CountLine(filePath string) (int, error) {
+	count := 0
+	file, err := os.Open(filePath)
+	if err != nil {
+		return 0, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		count += 1
+	}
+
+	if err := scanner.Err(); err != nil {
+		return 0, err
+	}
+	return count, nil
 }
