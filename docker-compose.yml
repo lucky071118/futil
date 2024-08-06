@@ -1,0 +1,8 @@
+services:
+  dev:
+    build: .
+    stdin_open: true
+    tty: true
+    command: bash
+    volumes:
+      - .:/usr/src/app
